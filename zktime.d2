@@ -1,0 +1,188 @@
+classes: {
+    empty: {
+      label: ""
+      style: {
+        fill: transparent
+        stroke-width: 0
+      }
+    }
+    text: {
+      style: {
+        fill: transparent
+        stroke-width: 0
+      }
+    }
+    cluster: {
+      style: {
+        fill: transparent
+        stroke-dash: 4
+        stroke: "#C6D3DF"
+      }
+    }
+    grid: {
+      grid-columns: 1
+      label: ""
+      style: {
+        fill: transparent        
+        stroke-width: 0
+      }
+    }
+    row: {
+      grid-rows: 1
+      label: ""
+      style: {
+        fill: transparent
+        stroke-width: 0
+      }
+    }
+    store: {
+        shape: image
+        icon: assets/supermarket.svg    
+    }
+    timeclock: {
+        icon: assets/face.svg
+        width: 20
+        height: 60
+    }
+  }  
+
+  tm: {
+    label: "Time Attendance"
+    near: top-center
+    shape: text
+    style.font-size: 55
+  }
+
+  
+stores: ""{     
+    label: "STORES"    
+    label.near: outside-top-left
+    # class: cluster
+    0*.style.stroke: black                   
+    0*.class: store
+    0*.label: ""
+    grid-rows: 2
+    grid-columns: 20        
+    grid-gap: 0
+        
+    0200
+    0300
+    empty1.class: empty
+    n.class: text
+    n.label: "54 stores"
+    empty2.class: empty         
+    0400   
+    0800       
+
+    0300 <- n -> 0400 { style.animated: true }    
+        
+}
+# direction: up
+grid-rows: 4
+# grid-columns:
+tm-> stores { style.animated: true }
+
+time_clock*: "" {   
+    class: timeclock         
+    style.fill: "#FFF"    
+}  
+stores.0200 -> time_clock1 { style.animated: true }
+stores.0200 -> time_clock2 { style.animated: true }
+stores.0300 -> time_clock3 { style.animated: true }
+stores.0300 -> time_clock4 { style.animated: true }
+stores.0400 -> time_clock5 { style.animated: true }
+stores.0400 -> time_clock6 { style.animated: true }
+stores.0800 -> time_clock7 { style.animated: true }
+stores.0800 -> time_clock8 { style.animated: true }
+
+empty1 {
+    class: empty
+    width: 600
+}
+python_script: "PYTHON"{
+    class: grid
+    width: 600    
+    icon: assets/python.svg  
+}
+
+time_clock* <--> python_script {style.animated: true}
+
+python_script -> sap
+
+sap: "" {
+    class: grid
+    shape: image
+    icon: assets/sap-logo.svg
+}  
+
+# time_clock*: "" {    
+#     icon: assets/face.svg
+#     style.fill: "#FFF"
+#     width: 20
+#     height: 60
+# }  
+
+
+
+# time_clock* <-> python_script
+
+# # vars: {
+                
+    
+        
+       
+            
+#     }
+#     python_script: "Python"{
+#         shape: image
+#         icon: assets/python.svg
+#     }
+#     postgresql: ""{
+#         shape: image
+#         icon: assets/postgresql-server.svg
+#     }
+#     sap: "" {
+#         shape: image
+#         icon: assets/sap-logo.svg
+#     }    
+# }
+
+# grid-rows: 3
+
+# top-row: {
+#     class: row
+#     empty.class: empty
+#     empty.width: 110
+  
+#     tm: "Time Attendance" {
+#         shape: circle    
+#         style.font-size: 20
+#         style.fill: "#fff"    
+#         style.border-radius: 20
+#     }
+# }
+# store-row: {    
+#     class: row
+#     1: ${stores}    
+# }
+# time-row: {
+#     class: row
+#     time_clock: "" {
+#         icon: assets/face.svg
+#         style.fill: "#FFF"
+#         width: 60
+#         height: 60
+#     } 
+#     time_clock
+# }
+
+# time-row* <-> python_script {style.animated: true}
+
+# python_script -> "postgresql" : "Backup"{
+#     style.animated: true        
+# }
+# python_script <-> sap : "Update" {
+#     style.animated: true    
+# }
+
+# top-row.tm -> store-row { style.animated: true }
